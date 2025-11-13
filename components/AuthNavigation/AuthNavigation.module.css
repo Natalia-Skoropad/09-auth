@@ -1,0 +1,11 @@
+.navigationItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.userEmail {
+  color: #fff;
+  font-size: 0.9rem;
+  margin-left: 30px;
+}

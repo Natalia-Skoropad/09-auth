@@ -1,0 +1,23 @@
+.wrap {
+  display: grid;
+  place-items: center;
+  min-height: 100px;
+  color: #212529;
+  padding: 50px 16px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 3px solid #9aa3b2;
+  border-top-color: #0d6efd;
+  animation: s 1s linear infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes s {
+  to {
+    transform: rotate(360deg);
+  }
+}

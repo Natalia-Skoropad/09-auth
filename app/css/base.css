@@ -1,0 +1,107 @@
+:root {
+  --primary: #0d6efd;
+  --primary-hover: #0b5ed7;
+  --danger: #dc3545;
+  --muted: #6c757d;
+  --text: #212529;
+  --bg: #fff;
+  --radius: 8px;
+  --radius-sm: 4px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  min-width: 120px;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease,
+    border-color 0.2s ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.btn--primary {
+  background: var(--primary);
+}
+
+.btn--primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn--cancel {
+  background: #f8f9fa;
+  color: #333 !important;
+  border-color: #ced4da;
+}
+
+.btn--cancel:hover {
+  background: #e2e6ea;
+}
+
+.btn--danger {
+  background: var(--danger);
+  color: #fff;
+}
+
+.btn--danger:hover {
+  filter: brightness(0.9);
+}
+
+.btn--logout {
+  min-width: 50px;
+  height: 30px;
+  background: #f8f9fa;
+  color: #333;
+  border-color: #ced4da;
+}
+
+.btn--logout:hover {
+  background: #e2e6ea;
+}
+
+.link-like {
+  text-decoration: none;
+  color: inherit;
+}
+
+.input {
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #ced4da;
+  border-radius: var(--radius-sm);
+}
+
+.input--error {
+  border-color: #dc3545;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.field + .field {
+  margin-top: 16px;
+}
+
+.error-text {
+  margin-top: 4px;
+  font-size: 12px;
+  color: #dc3545;
+}
