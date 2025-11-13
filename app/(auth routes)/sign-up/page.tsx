@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import * as Yup from 'yup';
 
-import { register, updateMe, type RegisterRequest } from '@/lib/api/clientApi';
+import { register, type RegisterRequest } from '@/lib/api/clientApi';
 import { useAuthStore } from '@/lib/store/authStore';
 import { ApiError } from '@/app/api/api';
 import { Button } from '@/app/components';
@@ -15,9 +15,6 @@ import css from './SignUpPage.module.css';
 //===========================================================================
 
 const signUpSchema = Yup.object({
-  username: Yup.string()
-    .min(2, 'Username must be at least 2 characters')
-    .required('Username is required'),
   email: Yup.string()
     .email('Enter a valid email.')
     .required('Email is required'),
@@ -26,11 +23,7 @@ const signUpSchema = Yup.object({
     .required('Password is required'),
 });
 
-type SignUpForm = {
-  username: string;
-  email: string;
-  password: string;
-};
+type SignUpForm = RegisterRequest;
 
 //===========================================================================
 
@@ -39,7 +32,6 @@ function SignUp() {
   const setUser = useAuthStore(s => s.setUser);
 
   const [values, setValues] = useState<SignUpForm>({
-    username: '',
     email: '',
     password: '',
   });
@@ -83,14 +75,8 @@ function SignUp() {
 
       setErrors({});
 
-      const payload: RegisterRequest = {
-        email: valid.email,
-        password: valid.password,
-      };
-      const user = await register(payload);
-      const updated = await updateMe({ username: valid.username });
-
-      setUser(updated ?? user);
+      const user = await register(valid);
+      setUser(user);
       router.push('/profile');
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
@@ -123,7 +109,7 @@ function SignUp() {
         <h1 className={css.formTitle}>Sign up</h1>
 
         <div className={css.formGroup}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email*</label>
           <input
             id="email"
             className={`${css.input} ${errors.email ? css.inputError : ''}`}
@@ -132,6 +118,7 @@ function SignUp() {
             placeholder="you@example.com"
             value={values.email}
             onChange={handleChange}
+            aria-invalid={Boolean(errors.email)}
           />
           {errors.email && (
             <span className={css.errorField}>{errors.email}</span>
@@ -139,23 +126,7 @@ function SignUp() {
         </div>
 
         <div className={css.formGroup}>
-          <label htmlFor="username">Username</label>
-          <input
-            id="username"
-            className={`${css.input} ${errors.username ? css.inputError : ''}`}
-            type="text"
-            name="username"
-            placeholder="Your name"
-            value={values.username}
-            onChange={handleChange}
-          />
-          {errors.username && (
-            <span className={css.errorField}>{errors.username}</span>
-          )}
-        </div>
-
-        <div className={css.formGroup}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password*</label>
           <input
             id="password"
             className={`${css.input} ${errors.password ? css.inputError : ''}`}
@@ -164,6 +135,7 @@ function SignUp() {
             placeholder="••••••••"
             value={values.password}
             onChange={handleChange}
+            aria-invalid={Boolean(errors.password)}
           />
           {errors.password && (
             <span className={css.errorField}>{errors.password}</span>
@@ -171,10 +143,11 @@ function SignUp() {
         </div>
 
         {authError && <p className={css.errorCommon}>{authError}</p>}
+
         <Button type="submit" text="Register" variant="normal" />
 
         <p className={css.helper}>
-          Already have an account?
+          Already have an account?{' '}
           <Link href="/sign-in" className={css.link}>
             Sign in
           </Link>

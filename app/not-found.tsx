@@ -3,7 +3,7 @@ import css from './not-found.module.css';
 
 // ================================================================
 
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 // ================================================================
 

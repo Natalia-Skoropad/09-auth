@@ -6,12 +6,12 @@ import {
 
 import type { Metadata } from 'next';
 
-import { fetchNoteById } from '@/lib/api/clientApi';
+import { fetchNoteById } from '@/lib/api/serverApi';
 import NoteDetailsClient from './NoteDetails.client';
 
 // ================================================================
 
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 interface PageProps {
   params: Promise<{ id: string }>;

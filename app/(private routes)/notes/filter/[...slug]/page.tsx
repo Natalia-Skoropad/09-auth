@@ -6,14 +6,14 @@ import {
 
 import type { Metadata } from 'next';
 
-import { fetchNotes } from '@/lib/api/clientApi';
+import { fetchNotes } from '@/lib/api/serverApi';
 import type { NoteTag } from '@/types/note';
 import NotesClient from './Notes.client';
 
 //===========================================================================
 
 const PER_PAGE = 12;
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 interface NotesByTagPageProps {
   params: Promise<{ slug?: string[] }>;

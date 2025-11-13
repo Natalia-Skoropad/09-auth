@@ -1,14 +1,14 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 
-import { getServerMe } from '@/lib/api/serverApi';
+import { getMe } from '@/lib/api/serverApi';
 import { LinkButton } from '@/app/components';
 
 import css from './ProfilePage.module.css';
 
 //===========================================================================
 
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 export const metadata: Metadata = {
   title: 'Profile — NoteHub',
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
 // ================================================================
 
 async function Profile() {
-  const user = await getServerMe();
+  const user = await getMe();
 
   return (
     <section className={css.mainContent}>

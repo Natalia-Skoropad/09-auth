@@ -20,7 +20,7 @@ const TAGS: NoteTag[] = [
   'Todo',
 ];
 
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 //===========================================================================
 

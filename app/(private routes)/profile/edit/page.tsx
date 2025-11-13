@@ -1,27 +1,20 @@
 'use client';
 
-import { useEffect, useMemo, useState, ChangeEvent, FormEvent } from 'react';
+import { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import * as Yup from 'yup';
 
 import { Button } from '@/app/components';
 import { updateMe, getMe } from '@/lib/api/clientApi';
+import { useAuthStore } from '@/lib/store/authStore';
 
 import css from './EditProfilePage.module.css';
 
 //===========================================================================
 
-const schema = Yup.object({
-  username: Yup.string()
-    .min(2, 'Username must be at least 2 characters')
-    .required('Username is required'),
-});
-
-//===========================================================================
-
 function EditProfile() {
   const router = useRouter();
+  const setUser = useAuthStore(s => s.setUser);
 
   const [avatar, setAvatar] = useState(
     'https://ac.goit.global/fullstack/react/default-avatar.jpg'
@@ -48,35 +41,27 @@ function EditProfile() {
     setError('');
   };
 
-  const valid = useMemo(() => {
-    try {
-      schema.validateSync({ username }, { abortEarly: true });
-      return true;
-    } catch {
-      return false;
-    }
-  }, [username]);
-
   const unchanged = username.trim() === initialUsername.trim();
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError('');
+    setSaving(true);
 
     try {
-      const { username: validName } = await schema.validate(
-        { username },
-        { abortEarly: true }
-      );
-      setSaving(true);
-      await updateMe({ username: validName });
+      const updated = await updateMe({ username });
+
+      if (updated) {
+        setUser(updated);
+      } else {
+        const fresh = await getMe();
+        setUser(fresh);
+      }
+
       router.push('/profile');
-    } catch (e) {
-      const msg =
-        e instanceof Yup.ValidationError
-          ? e.message
-          : 'Unable to save. Try again.';
-      setError(msg);
+      router.refresh();
+    } catch {
+      setError('Unable to save. Try again.');
       setSaving(false);
     }
   };
@@ -113,7 +98,7 @@ function EditProfile() {
           <Button
             type="submit"
             text={saving ? 'Saving…' : 'Save'}
-            disabled={!valid || unchanged || saving}
+            disabled={unchanged || saving}
           />
           <Button
             type="button"

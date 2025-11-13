@@ -12,7 +12,7 @@ import 'modern-normalize/modern-normalize.css';
 
 //===========================================================================
 
-const SITE_URL = 'https://09-auth.vercel.app';
+const SITE_URL = 'https://09-auth-henna-seven.vercel.app';
 
 const roboto = Roboto({
   subsets: ['latin'],

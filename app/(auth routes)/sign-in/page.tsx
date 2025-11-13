@@ -103,7 +103,7 @@ function SignIn() {
         <h1 className={css.formTitle}>Sign in</h1>
 
         <div className={css.formGroup}>
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email*</label>
           <input
             id="email"
             className={`${css.input} ${errors.email ? css.inputError : ''}`}
@@ -120,7 +120,7 @@ function SignIn() {
         </div>
 
         <div className={css.formGroup}>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">Password*</label>
           <input
             id="password"
             className={`${css.input} ${errors.password ? css.inputError : ''}`}
