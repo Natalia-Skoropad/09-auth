@@ -1,6 +1,6 @@
 <h2>About the project</h2>
 <p>
-  This is a multi-page application that allows users to create and organize personal notes, designed for mobile, tablet, and desktop.
+  This is a multi-page application that allows users to create and organize personal notes
 </p>
 
 <h2>Implemented features</h2>
